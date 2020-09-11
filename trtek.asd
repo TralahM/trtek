@@ -1,4 +1,4 @@
-(defsystem "trtek-utils"
+(defsystem "trtek"
   :version "0.1.0"
   :author "Tralah M Brian <musyoki.brian@tralahtek.com>"
   :license "GPL"
@@ -7,19 +7,20 @@
                "alexandria")
   :components ((:module "src"
                 :components
-                ((:file "main"))))
+                ((:file "packages")
+                 (:file "main"))))
   :description ""
   :long-description #.(uiop:read-file-string
       (uiop:subpathname *load-pathname* "README.md"))
-  :in-order-to ((test-op (test-op "trtek-utils/tests"))))
+  :in-order-to ((test-op (test-op "trtek/tests"))))
 
-(defsystem "trtek-utils/tests"
+(defsystem "trtek/tests"
   :author "Tralah M Brian <musyoki.brian@tralahtek.com>"
   :license "GPL"
-  :depends-on ("trtek-utils"
+  :depends-on ("trtek"
                "rove")
   :components ((:module "tests"
                 :components
                 ((:file "main"))))
-  :description "Test system for trtek-utils"
+  :description "Test system for trtek"
   :perform (test-op (op c) (symbol-call :rove :run c)))

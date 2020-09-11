@@ -1,10 +1,10 @@
-(defpackage trtek-utils/tests/main
+(defpackage trtek/tests/main
   (:use :cl
-        :trtek-utils
+        :trtek
         :rove))
-(in-package :trtek-utils/tests/main)
+(in-package :trtek/tests/main)
 
-;; NOTE: To run this test file, execute `(asdf:test-system :trtek-utils)' in your Lisp.
+;; NOTE: To run this test file, execute `(asdf:test-system :trtek)' in your Lisp.
 
 (deftest test-target-1
   (testing "should (= 1 1) to be true"
