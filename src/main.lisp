@@ -24,14 +24,17 @@
 
 
 (defun sigmoid (x)
+  "The sigmoid function "
   (/ 1.0 (+ 1.0 (exp (- x)))))
 
 (defun sigmoid* (x)
+  "Integral of the sigmoid function "
   (let ((temp (sigmoid x)))
     (* temp (- 1.0 temp))))
 
 ;; blah blah blah.
 (defun cmplmnt (fn)
+  "complement of a function `fn' i.e not fn"
   #'(lambda (&rest args) (not (apply fn args))))
 
 
@@ -57,6 +60,7 @@
 
 ;Memoizing utility
 (defun memoize (fn)
+  "Memoizing utility for expensive function calls"
   (let ((cache (make-hash-table :test #'equal)))
     #'(lambda (&rest args)
         (multiple-value-bind (val win) (gethash args cache)
@@ -77,6 +81,7 @@
 ;; Composing Functions
 
 (defun compose (&rest fns)
+  "Composing Functions takes a list of functions and returns a composed function in order of specification"
   (if fns
       (let ((fn1 (car (last fns)))
             (fns (butlast fns)))
@@ -129,6 +134,8 @@
 ;; The function prompt combines printing a question and reading the answer.It
 ;; takes the arguments of format,except the initial stream argument
 (defun prompt (&rest args)
+  "The function prompt combines printing a question and reading the answer.It takes the arguments of format,except the initial stream argument
+"
   (apply #'format *query-io* args)
   (read *query-io*))
 
@@ -161,25 +168,36 @@
 (proclaim '(inline last1 single append1 conc1 mklist))
 
 ;; last element in a list
-(defun last1 (lst) (car (last lst)))
+(defun last1 (lst)
+  "get last element in a list `lst'"
+  (car (last lst)))
 
 ;; test whether lst is a list of one element
-(defun single (lst) (and (consp lst) (not (cdr lst))))
+(defun single (lst)
+  "test whether `lst' is a list of one element"
+  (and (consp lst) (not (cdr lst))))
 
 ;; attach a new element to end of a list non-destructively
-(defun append1 (lst obj) (append lst (list obj)))
+(defun append1 (lst obj)
+  "attach a new element `obj' to end of a list `lst' non-destructively"
+  (append lst (list obj)))
 
 ;; attach a new element to end of a list destructively
-(defun conc1 (lst obj) (nconc lst (list obj)))
+(defun conc1 (lst obj)
+  "attach a new element `obj' to end of a list `lst' destructively"
+  (nconc lst (list obj)))
 
 ;; Ensure obj is a list
-(defun mklist (obj) (if (listp obj) obj (list obj)))
+(defun mklist (obj)
+  "Ensure `obj' is a list"
+  (if (listp obj) obj (list obj)))
 
 
 ; Longer Functions That Operate on Lists
 
 ;; Check whether a list x is longer than a list y
 (defun longer (x y)
+  "Check whether a list `x' is longer than a list `y'"
   (labels ((compare (x y)
                     (and (consp x) (or (null y)
                                        (compare (cdr x) (cdr y))))))
@@ -187,6 +205,7 @@
 
 ;; Apply filter function fn to list lst
 (defun filter (fn lst)
+  "Apply filter function `fn' to list `lst'"
   (let ((acc nil))
     (dolist (x lst)
       (let ((val (funcall fn x)))
@@ -195,6 +214,7 @@
 
 ;; Groups List into Sublists of Length n, remainder stored in last sublist
 (defun group (source n)
+  "Groups List `source' into Sublists of Length `n', remainder stored in last sublist"
   (if (zerop n) (error "Zero length"))
   (labels ((rec (source acc)
                 (let ((rest (nthcdr n source)))
@@ -207,6 +227,7 @@
 
 ;; Flatten List lst with Nested Lists
 (defun flatten (x)
+  "Flatten List `x' with Nested Lists"
   (labels ((rec (x acc)
                 (cond ((null x) acc)
                       ((atom x) (cons x acc))
@@ -215,6 +236,7 @@
 
 ;; Prune List with Nested Lists using the function test
 (defun prune (test tree)
+  "Prune List `tree' with Nested Lists using the function `test'"
   (labels ((rec (tree acc)
                 (cond ((null tree) (nreverse acc))
                       ((consp (car tree))
@@ -231,6 +253,7 @@
 ;; both map0-n and map1-n are written using the general form mapa-b, which works
 ;; for any range of numbers and not only for ranges of positive integers
 (defun mapa-b (fn a b &optional (step 1))
+  "mapa-b, mapping function which ;; applies a function to a sequence of arguments and works for any range of numbers and not only for ranges of positive integers"
   (do ((i a (+ i step))
        (result nil))
       ((> i b) (nreverse result))
@@ -266,6 +289,7 @@
 ;; list of the square roots of both we could say in raw lisp (mapcar #'sqrt
 ;; (append list1 list2)) or using mapcars
 (defun mapcars (fn &rest lsts)
+  "The utility mapcars is for cases where we want to mapcar a function over several lists. "
   (let ((result nil))
     (dolist (lst lsts)
       (dolist (obj lst)
@@ -277,6 +301,7 @@
 ;; Recursive mapcar a version of mapcar for trees and does what mapcar does on
 ;; flat lists, it does on trees
 (defun rmapcar (fn &rest args)
+  "Recursive mapcar a version of mapcar for trees and does what mapcar does on flat lists, it does on trees"
   (if (some #'atom args)
       (apply fn args)
       (apply #'mapcar
@@ -339,7 +364,7 @@
             (when (> score max)
               (setq wins obj max score))))
         (values wins max))))
-(most #'length '((a b) (a b c) (a) (e f g))) ;==> (A B C) ;===> 3
+; (most #'length '((a b) (a b c) (a) (e f g))) ;==> (A B C) ;===> 3
 
 (defun best (fn lst)
   (if (null lst)
@@ -350,7 +375,7 @@
               (setq wins obj)))
         wins)))
 
-(best #'> '(1 2 3 4 5)) ; ==> 5
+; (best #'> '(1 2 3 4 5)) ; ==> 5
 
 (defun mostn (fn lst)
   (if (null lst)
@@ -378,6 +403,7 @@
 ;;; Built upon symb
 
 (defun mkstr (&rest args)
+  "mkstr takes any number of arguments and concatenates their printed representations into a string"
   (with-output-to-string (s)
     (dolist (a args) (princ a s))))
 
@@ -403,3 +429,10 @@
 ; (explode 'bomb);==> (B O M B)
 
 ; (explode 'tralahtek)
+
+(defun cumsum (lst &key (smsf 0))
+  " Calculate the Cumulative Sum of a List `lst'. and return a new list with the incremental sums at each step.  (`cumsum' '(1 3 4 6 8) :smsf 0) where `:smsf' is an optional parameter specifying where to start summing from. i.e the offset of counting."
+  (if (null lst)
+      '()
+    (cons (+ smsf (car lst))
+          (funcall #'cumsum (cdr lst) :smsf (+ smsf (car lst))))))
