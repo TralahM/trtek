@@ -7,16 +7,12 @@
   :bug-tracker "https://github.com/TralahM/trtek/issues"
   :source-control (:git "git@github.com:TralahM/trtek.git")
   :depends-on ("common-lisp"
-               "uiop"
+               :uiop
                "alexandria")
   :components ((:module "src"
                 :components
                 ((:file "packages")
-                 (:file "main")
-                 (:module "utils"
-                  :serial t
-                  :components
-                  ((:file "main"))))))
+                 (:file "main")))))
   :description "An Attempt at Lisp System Building."
   :long-description #.(uiop:read-file-string
                         (uiop:subpathname *load-pathname* "README.md"))
