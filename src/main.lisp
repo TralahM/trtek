@@ -436,3 +436,11 @@
       '()
     (cons (+ smsf (car lst))
           (funcall #'cumsum (cdr lst) :smsf (+ smsf (car lst))))))
+
+
+(defun zip (x y)
+  "Zip 2 lists `x' and `y' into a list of pairs. Returns a list with the length of the shortest list"
+  (cond ((and (null x) (null y)) '())
+        ((and (not (atom x)) (not (atom y)))
+         (cons (list (car x) (car y))
+               (zip (cdr x) (cdr y))))))
