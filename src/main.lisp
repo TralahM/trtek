@@ -134,9 +134,9 @@
 
 (defun fif (if then &optional else)
   #'(lambda (x)
-  (if (funcall if x)
-      (funcall then x)
-    (if else (funcall else x)))))
+      (if (funcall if x)
+          (funcall then x)
+          (if else (funcall else x)))))
 
 ;;(funcall (fif #'(lambda (x) (evenp x)) #'print #'(lambda (x) (format t "~a is not divisible by 2 ~%" x))) 3)
 ;;(funcall (fif #'(lambda (x) (evenp x)) #'(lambda (x) (format t "~a is divisible by 2" x) ) #'(lambda (x) (format t "~a is not divisible by 2 ~%" x))) 8)
@@ -173,7 +173,7 @@
 ;; takes the arguments of format,except the initial stream argument
 (defun prompt (&rest args)
   "The function prompt combines printing a question and reading the answer.It takes the arguments of format,except the initial stream argument
-"
+  "
   (apply #'format *query-io* args)
   (read *query-io*))
 
@@ -245,8 +245,8 @@
 (defun longer (x y)
   "Check whether a list `x' is longer than a list `y'"
   (labels ((compare (x y)
-                    (and (consp x) (or (null y)
-                                       (compare (cdr x) (cdr y))))))
+             (and (consp x) (or (null y)
+                                (compare (cdr x) (cdr y))))))
     (if (and (listp x) (listp y)) (compare x y) (> (length x) (length y)))))
 
 
@@ -271,10 +271,10 @@
   "Groups List `source' into Sublists of Length `n', remainder stored in a last sublist"
   (if (zerop n) (error "Zero length"))
   (labels ((rec (source acc)
-                (let ((rest (nthcdr n source)))
-                  (if (consp rest)
-                    (rec rest (cons (subseq source 0 n) acc))
-                    (nreverse (cons source acc))))))
+             (let ((rest (nthcdr n source)))
+               (if (consp rest)
+                   (rec rest (cons (subseq source 0 n) acc))
+                   (nreverse (cons source acc))))))
     (if source (rec source nil) nil)))
 
 ;;;; (group '(1 2 3 4 5 6 7 8) 2)
@@ -291,9 +291,9 @@
 (defun flatten (x)
   "Flatten List `x' with Nested Lists"
   (labels ((rec (x acc)
-                (cond ((null x) acc)
-                      ((atom x) (cons x acc))
-                      (t (rec (car x) (rec (cdr x) acc))))))
+             (cond ((null x) acc)
+                   ((atom x) (cons x acc))
+                   (t (rec (car x) (rec (cdr x) acc))))))
     (rec x nil)))
 
 ;;;; (flatten '(1 2 3 (4 6 (8 9 12 (32 11) 39) 7) 19))
@@ -305,14 +305,14 @@
 (defun prune (test tree)
   "Prune List `tree' with Nested Lists using the function `test'"
   (labels ((rec (tree acc)
-                (cond ((null tree) (nreverse acc))
-                      ((consp (car tree))
-                       (rec (cdr tree)
-                            (cons (rec (car tree) nil) acc)))
-                      (t (rec (cdr tree)
-                              (if (funcall test (car tree))
-                                acc
-                                (cons (car tree) acc)))))))
+             (cond ((null tree) (nreverse acc))
+                   ((consp (car tree))
+                    (rec (cdr tree)
+                         (cons (rec (car tree) nil) acc)))
+                   (t (rec (cdr tree)
+                           (if (funcall test (car tree))
+                               acc
+                               (cons (car tree) acc)))))))
     (rec tree nil)))
 
 ;;;; (prune #'oddp '(1 2 3 (4 6 (8 9 12 (32 11) 39) 7) 19))
@@ -519,8 +519,8 @@
   " Calculate the Cumulative Sum of a List `lst'. and return a new list with the incremental sums at each step.  (`cumsum' '(1 3 4 6 8) :smsf 0) where `:smsf' is an optional parameter specifying where to start summing from. i.e the offset of counting."
   (if (null lst)
       '()
-    (cons (+ smsf (car lst))
-          (funcall #'cumsum (cdr lst) :smsf (+ smsf (car lst))))))
+      (cons (+ smsf (car lst))
+            (funcall #'cumsum (cdr lst) :smsf (+ smsf (car lst))))))
 
 ;;;; (cumsum '(1 2 3 4 5 6 7 8 9 10 11))
 ;;;; (cumsum '(1 2 3 4 5 6 7 8 9 10 11) :smsf 20)
@@ -535,13 +535,24 @@
                (zip (cdr x) (cdr y))))))
 
 ; (zip '(12 34 57) '(33 55 77))
+; (zip '(1 2 3) '(4 5 6))
 ; (zip '(12 34 57 32 45) '(33 55 77))
 ; (zip '(12 34 57) '(33 55 77 32 34))
 ; (zip '(90 12 34 57) '(33 55 77 32 34))
+; (zip '(90 12 34 57) '(33 55 77 32 34))
 
 (defun zipn (&rest args)
-  (reduce #'zip  args))
+  (let ((acc nil))
+    (let ((lsts (reduce #'zip  args)))
+      ; (print lsts)
+      (dolist (lst lsts)
+        ; (print (flatten lst))
+        (push (flatten lst) acc)))
+    ; (print acc)
+    (nreverse acc)))
+; (zipn '(1 2 3) '(4 5 6))
 ; (zipn '(90 12 34 57) '(33 55 77 32 34) '(21 45 33 12))
+; (zipn '(90 12 34 57) '(33 55 77 32 34))
 ; (zipn '(90 12 34 57) '(33 55 77 32 34) '(21 45 33 12) '(23 45 67 88))
 ; (reduce #'+ (zipn '(90 12 34 57) '(33 55 77 32 34) '(21 45 33 12) '(23 45 67 88)))
 
@@ -553,25 +564,45 @@
 ;;;; (sumlist '(-1 2 -3 4 -5 6 7 -8 9 10 11)) ;; => 32
 
 
-(defun zipsum (x y)
-  (mapcar #'(lambda (x) (reduce #'+ x)) (zip x y)))
+(defun zipsum (&rest args)
+  (let ((res nil))
+    (dolist (x (apply #'zipn args))
+      ; (print (apply #'zipn args))
+      (push (apply #'(lambda (x) (reduce #'+ x)) (list x)) res))
+    (nreverse res)))
 
 ;; (zipsum '(1 2 3) '(4 5 6)) ;;==> (5 7 9)
 ;; (zipsum '(1 -2 3) '(4 5 6)) ;;==> (5 3 9)
+;; (zipsum '(1 -2 3) '(4 5 6) '(10 11 12)) ;;==> (15 14 21)
 
-(defun zipdiff (x y)
-  (mapcar #'(lambda (x) (reduce #'- x)) (zip x y)))
+(defun zipdiff (&rest args)
+  (let ((res nil))
+    (dolist (x (apply #'zipn args))
+      ; (print (apply #'zipn args))
+      (push (apply #'(lambda (x) (reduce #'- x)) (list x)) res))
+    (nreverse res)))
 
 ;; (zipdiff '(1 2 3) '(4 5 6)) ;;==> (-3 -3 -3)
 ;; (zipdiff '(10 20 30) '(4 5 6)) ;;==> (6 15 24)
+;; (zipdiff '(10 20 30) '(4 5 6) '(2 6 10)) ;;==> (4 9 14)
 
-(defun zipmult (x y)
-  (mapcar #'(lambda (x) (reduce #'* x)) (zip x y)))
+(defun zipmult (&rest args)
+  (let ((res nil))
+    (dolist (x (apply #'zipn args))
+      ; (print (apply #'zipn args))
+      (push (apply #'(lambda (x) (reduce #'* x)) (list x)) res))
+    (nreverse res)))
 
 ;; (zipmult '(1 2 3) '(4 5 6)) ;;==> (4 10 18)
+;; (zipmult '(1 2 3) '(4 5 6) '(7 8 9)) ;;==> (28 80 172)
 
-(defun zipdiv (x y)
-  (mapcar #'(lambda (x) (reduce #'/ x)) (zip x y)))
+(defun zipdiv (&rest args)
+  (let ((res nil))
+    (dolist (x (apply #'zipn args))
+      ; (print (apply #'zipn args))
+      (push (apply #'(lambda (x) (reduce #'/ x)) (list x)) res))
+    (nreverse res)))
 
 ;; (zipdiv '(1 2 3) '(4 5 6)) ;;==> (1/4 2/5 1/2)
 ;; (zipdiv '(1.0 2.0 3.0) '(4 5 6)) ;;==> (0.25 0.4 0.5)
+;; (zipdiv '(1.0 2.0 3.0) '(4 5 6) '(5 2 0.25)) ;;==> (0.05 0.2 2.0)
