@@ -545,3 +545,27 @@
 
 ;;;; (sumlist '(1 2 3 4 5 6 7 8 9 10 11)) ;; => 66
 ;;;; (sumlist '(-1 2 -3 4 -5 6 7 -8 9 10 11)) ;; => 32
+
+
+(defun zipsum (x y)
+  (mapcar #'(lambda (x) (reduce #'+ x)) (zip x y)))
+
+;; (zipsum '(1 2 3) '(4 5 6)) ;;==> (5 7 9)
+;; (zipsum '(1 -2 3) '(4 5 6)) ;;==> (5 3 9)
+
+(defun zipdiff (x y)
+  (mapcar #'(lambda (x) (reduce #'- x)) (zip x y)))
+
+;; (zipdiff '(1 2 3) '(4 5 6)) ;;==> (-3 -3 -3)
+;; (zipdiff '(10 20 30) '(4 5 6)) ;;==> (6 15 24)
+
+(defun zipmult (x y)
+  (mapcar #'(lambda (x) (reduce #'* x)) (zip x y)))
+
+;; (zipmult '(1 2 3) '(4 5 6)) ;;==> (4 10 18)
+
+(defun zipdiv (x y)
+  (mapcar #'(lambda (x) (reduce #'/ x)) (zip x y)))
+
+;; (zipdiv '(1 2 3) '(4 5 6)) ;;==> (1/4 2/5 1/2)
+;; (zipdiv '(1.0 2.0 3.0) '(4 5 6)) ;;==> (0.25 0.4 0.5)
