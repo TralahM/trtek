@@ -6,21 +6,21 @@
   ; :homepage "https://github.com/TralahM/trtek"
   ; :bug-tracker "https://github.com/TralahM/trtek/issues"
   ; :source-control (:git "git@github.com:TralahM/trtek.git")
-  :depends-on (:uiop :alexandria)
+  :depends-on (:uiop :alexandria :asdf)
   :components ((:module "src"
                 :serial t
                 :components ((:file "packages")
-                 (:file "main")))))
+                             (:file "main"))))
   :description "An Attempt at Lisp System Building."
   :long-description #.(uiop:read-file-string (uiop:subpathname *load-pathname* "README.md"))
-  ; :in-order-to ((test-op (rove "trtek/tests")))
+  :in-order-to ((test-op (test-op "trtek/tests"))))
 
 (defsystem "trtek/tests"
   :author "Tralah M Brian <musyoki.brian@tralahtek.com>"
   :license "GPL"
-  :depends-on ("trtek"
-               "rove")
+  :defsystem-depends-on (:prove-asdf)
+  :depends-on (:trtek :rove :prove :prove-asdf)
   :components ((:module "tests"
                 :components ((:file "main"))))
-  :description "Test system for trtek")
-  ; :perform (test-op (op c) (symbol-call :rove :run c)))
+  :description "Test system for trtek"
+  :perform (test-op :after (op c) (funcall (intern #.(string :run) :prove) c)))
