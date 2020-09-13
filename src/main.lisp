@@ -27,12 +27,28 @@
   "The sigmoid function "
   (/ 1.0 (+ 1.0 (exp (- x)))))
 
+;; (sigmoid 2)
+;; (sigmoid 1)
+;; (sigmoid 0)
+;; (sigmoid 0.25)
+;; (sigmoid (/ 22.0 7))
+
 (defun sigmoid* (x)
   "Integral of the sigmoid function "
   (let ((temp (sigmoid x)))
     (* temp (- 1.0 temp))))
 
-;; blah blah blah.
+;; (sigmoid* 2)
+;; (sigmoid* 1)
+;; (sigmoid* 0)
+;; (sigmoid* (/ 22.0 7))
+;; (sigmoid* 0.625)
+;; (sigmoid* (sigmoid 2))
+;; (sigmoid (sigmoid* 2))
+;; (sigmoid* (sigmoid 0))
+;; (sigmoid (sigmoid* 0))
+
+
 (defun cmplmnt (fn)
   "complement of a function `fn' i.e not fn"
   #'(lambda (&rest args) (not (apply fn args))))
@@ -70,6 +86,7 @@
                     (apply fn args)))))))
 
 
+;; (defvar slowid nil)
 ;; (setq slowid (memoize #'(lambda (x) (sleep 5) x)))
 
 ;; (time (funcall slowid 1));; 5.15 seconds
@@ -102,6 +119,8 @@
       (funcall then x)
     (if else (funcall else x)))))
 
+;;(funcall (fif #'(lambda (x) (evenp x)) #'print #'(lambda (x) (format t "~a is not divisible by 2 ~%" x))) 3)
+;;(funcall (fif #'(lambda (x) (evenp x)) #'(lambda (x) (format t "~a is divisible by 2" x) ) #'(lambda (x) (format t "~a is not divisible by 2 ~%" x))) 8)
 
 (defun fint (fn &rest fns)
   fn
@@ -172,10 +191,16 @@
   "get last element in a list `lst'"
   (car (last lst)))
 
+;;;; (last '(1 2 3 4))
+;;;; (last1 '(1 2 3 4))
+
 ;; test whether lst is a list of one element
 (defun single (lst)
   "test whether `lst' is a list of one element"
   (and (consp lst) (not (cdr lst))))
+
+;;;; (single '(1 2 3 4))
+;;;; (single '(1))
 
 ;; attach a new element to end of a list non-destructively
 (defun append1 (lst obj)
@@ -192,6 +217,8 @@
   "Ensure `obj' is a list"
   (if (listp obj) obj (list obj)))
 
+;;;; (mklist '(1 2));;==> (1 2)
+;;;; (mklist '12)  ;;==> (12)
 
 ; Longer Functions That Operate on Lists
 
@@ -203,6 +230,10 @@
                                        (compare (cdr x) (cdr y))))))
     (if (and (listp x) (listp y)) (compare x y) (> (length x) (length y)))))
 
+
+;;;; (longer '(1 2 3 45) '(1 5)) ;; ==> T
+;;;; (longer '(1 2 3 45) '(1 5 4 5 6 7)) ;; ==> NIL
+
 ;; Apply filter function fn to list lst
 (defun filter (fn lst)
   "Apply filter function `fn' to list `lst'"
@@ -212,9 +243,13 @@
         (if val (push val acc))))
     (nreverse acc)))
 
+;;;; (filter #'(lambda (x) (if (evenp x) x)) '(1 2 3 4 5 6 7 8))
+;;;; (filter #'(lambda (x) (if (oddp x) x)) '(1 2 3 4 5 6 7 8))
+;;;; (filter #'oddp '(1 2 3 4 5 6 7 8))
+
 ;; Groups List into Sublists of Length n, remainder stored in last sublist
 (defun group (source n)
-  "Groups List `source' into Sublists of Length `n', remainder stored in last sublist"
+  "Groups List `source' into Sublists of Length `n', remainder stored in a last sublist"
   (if (zerop n) (error "Zero length"))
   (labels ((rec (source acc)
                 (let ((rest (nthcdr n source)))
@@ -222,6 +257,14 @@
                     (rec rest (cons (subseq source 0 n) acc))
                     (nreverse (cons source acc))))))
     (if source (rec source nil) nil)))
+
+;;;; (group '(1 2 3 4 5 6 7 8) 2)
+;;;; (group '(1 2 3 4 5 6 7 8) 3)
+;;;; (group '(1 2 3 4 5 6 7 8) 8)
+;;;; (group '(1 2 3 4 5 6 7 8) 9)
+;;;; (group '(0 1 2 3 4 5 6 7 8) 2)
+;;;; (group '(0 1 2 3 4 5 6 7 8) 0)
+;;;; (group '() 2)
 
 ; Doubly Recursive List Utilities
 
@@ -233,6 +276,11 @@
                       ((atom x) (cons x acc))
                       (t (rec (car x) (rec (cdr x) acc))))))
     (rec x nil)))
+
+;;;; (flatten '(1 2 3 (4 6 (8 9 12 (32 11) 39) 7) 19))
+;;;; (flatten '(1 2 3 4 6 (8 9 12 (32 11 39) 7) 19))
+;;;; (flatten '(1 2 3 4 6 8 9 12 (32 11 39 7) 19))
+;;;; (flatten '(1 2 3 4 6 8 9 12 32 11 39 7 19))
 
 ;; Prune List with Nested Lists using the function test
 (defun prune (test tree)
@@ -248,6 +296,9 @@
                                 (cons (car tree) acc)))))))
     (rec tree nil)))
 
+;;;; (prune #'oddp '(1 2 3 (4 6 (8 9 12 (32 11) 39) 7) 19))
+;;;; (prune #'evenp '(1 2 3 (4 6 (8 9 12 (32 11) 39) 7) 19))
+
 ;; Another widely used class of Lisp functions are the mapping functions which
 ;; apply a function to a sequence of arguments.
 ;; both map0-n and map1-n are written using the general form mapa-b, which works
@@ -261,6 +312,7 @@
 
 
 ;; (mapa-b #'1+ -2 0 .5);====> (-1 -0.5 0.0 0.5 1.0)
+;; (mapa-b #'(lambda (x) (sin x)) (* -1 (/ 22.0 7)) (/ 22.0 7) .5);====> (-1 -0.5 0.0 0.5 1.0)
 
 
 
@@ -272,8 +324,10 @@
 
 
 ;; (map0-n #'1+ 5); ===> (1 2 3 4 5 6)
-
 ;; (map1-n #'1+ 5); ===> (2 3 4 5 6)
+
+;; (map1-n #'(lambda (x) x) 5); ===> (1 2 3 4 5)
+;; (map1-n #'(lambda (x) (* x x)) 5); ===> (1 4 9 16 25)
 
 (defun map-> (fn start test-fn succ-fn)
   (do ((i start (funcall succ-fn i))
@@ -297,6 +351,7 @@
     (nreverse result)))
 
 ;; (mapcars #'sqrt '(1 2 4 6 7 9) '( 25 81 625 225))
+;; (mapcars #'log '(1 2 4 6 7 9 10) '( 25 81 625 225))
 
 ;; Recursive mapcar a version of mapcar for trees and does what mapcar does on
 ;; flat lists, it does on trees
@@ -325,11 +380,14 @@
                ((funcall test x first) lst)
                (t (before x y (cdr lst) :test test))))))
 ;;; (before 'a 'b '(a)) ; ==> (A)
+;;; (before 'c 'd '(a b c d)) ; ==> (A)
+;;; (before 'b 'a '(b a b a b d)); ==> (B A B A B D)
 
 (defun after (x y lst &key (test #'eql))
   (let ((rest (before y x lst :test test)))
     (and rest (member x rest :test test))))
 ;;; (after 'a 'b '(b a d)); ==> (A D)
+;;; (after 'a 'b '(b a b a d)); ==> (A B A D)
 ;;; (after 'a 'b '(a)) ; ==> NIL
 
 ;; Check whether list lst contains duplicate obj using some test default
@@ -339,6 +397,7 @@
           :test test))
 
 ;;; (duplicate 'a '(a b c a d)) ;==> (A D)
+;;; (duplicate 'b '(a b c a b c a b d)) ;==> (A D)
 
 (defun split-if (fn lst)
   (let ((acc nil))
@@ -347,8 +406,8 @@
          (values (nreverse acc) src))
       (push (car src) acc))))
 
-;;; (split-if #'(lambda (x) (> x 4))
-; '(1 2 3 4 5 6 7 8 9 10))
+;;; (split-if #'(lambda (x) (> x 4)) '(1 2 3 4 5 6 7 8 9 10))
+;;; (split-if #'(lambda (x) (> x 4)) '(1 4 5 6 7 8 9 10 2 3))
 ;;; =>  (1 2 3 4)
 ;;; =>  (5 6 7 8 9 10)
 
@@ -376,6 +435,7 @@
         wins)))
 
 ; (best #'> '(1 2 3 4 5)) ; ==> 5
+; (best #'< '(1 2 3 4 5)) ; ==> 1
 
 (defun mostn (fn lst)
   (if (null lst)
@@ -392,6 +452,8 @@
 
 
 ; (mostn #'length '((ab) (a b c) (a) (e f g))) ;==>((A B C) (E F G)) ; ==> 3
+
+
 ;Functions which operate on symbols and strings
 
 ; Symbols and strings are closely related.By means of priinting and reading
@@ -413,11 +475,15 @@
 (defun symb (&rest args)
   (values (intern (apply #'mkstr args))))
 
+;;;; (symb pi 'mkstr)
+;;;; (symb '(1 2 3 4) '2 '678)
+
 ;; Generalization of symb it takes a series of objects,prints and rereads them.
 ;; it can return symbols like symb,but it can also return anything else read can
 (defun reread (&rest args)
   (values (read-from-string (apply #'mkstr args))))
 
+;;;; (reread '(1 2 3 4) '2 '678)
 
 ;; takes a symbol and returns a list of symbols made from the characters in
 ;; its name
@@ -437,6 +503,10 @@
     (cons (+ smsf (car lst))
           (funcall #'cumsum (cdr lst) :smsf (+ smsf (car lst))))))
 
+;;;; (cumsum '(1 2 3 4 5 6 7 8 9 10 11))
+;;;; (cumsum '(1 2 3 4 5 6 7 8 9 10 11) :smsf 20)
+;;;; (cumsum '(1 2 3 4 5 6 7 8 9 10 11) :smsf -10)
+; (cumsum '(12 34 57 33 55 77))
 
 (defun zip (x y)
   "Zip 2 lists `x' and `y' into a list of pairs. Returns a list with the length of the shortest list"
@@ -444,3 +514,8 @@
         ((and (not (atom x)) (not (atom y)))
          (cons (list (car x) (car y))
                (zip (cdr x) (cdr y))))))
+
+; (zip '(12 34 57) '(33 55 77))
+; (zip '(12 34 57 32 45) '(33 55 77))
+; (zip '(12 34 57) '(33 55 77 32 34))
+; (zip '(90 12 34 57) '(33 55 77 32 34))
