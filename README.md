@@ -21,6 +21,56 @@
 
 [![Documentation](https://img.shields.io/badge/Docs-trtek-utils-blue.svg?style=for-the-badge)](https://github.com/TralahM/trtek-utils)
 
+## Defined Utility Functions
+- after
+- append1
+- before
+- best
+- break-loop
+- cmplmnt
+- compose
+- conc1
+- cumsum
+- duplicate
+- explode
+- fif
+- filter
+- find2
+- fint
+- flatten
+- fun
+- group
+- last1
+- longer
+- map->
+- map0-n
+- map1-n
+- mapa-b
+- mapcars
+- mappend
+- memoize
+- mklist
+- mkstr
+- most
+- mostn
+- package-external-symbols
+- package-internal-symbols
+- prompt
+- prune
+- readlist
+- reread
+- rmapcar
+- sigmoid
+- sigmoid*
+- single
+- split-if
+- sumlist
+- symb
+- zip
+- zipdiff
+- zipdiv
+- zipmult
+- zipsum
 # How to Install
 ```bash
 # In terminal do:
