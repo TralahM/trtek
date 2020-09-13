@@ -45,6 +45,11 @@
     explode
     cumsum
     zip
+    zipsum
+    zipdiff
+    zipdiv
+    zipmult
+    zipn
     sumlist
     package-internal-symbols
     package-external-symbols))
