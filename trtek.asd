@@ -19,7 +19,7 @@
   :author "Tralah M Brian <musyoki.brian@tralahtek.com>"
   :license "GPL"
   :defsystem-depends-on (:prove-asdf)
-  :depends-on (:trtek :rove :prove :prove-asdf)
+  :depends-on (:trtek :prove :prove-asdf)
   :components ((:module "tests"
                 :components ((:file "main"))))
   :description "Test system for trtek"

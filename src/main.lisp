@@ -22,6 +22,25 @@
 
 (in-package :trtek)
 
+(defun package-internal-symbols (package)
+  (let ((rslt nil))
+    (do-symbols (s package)
+      (when (eq (second
+                  (multiple-value-list
+                    (find-symbol (symbol-name s) package)))
+                :internal)
+        (push s rslt)))
+    rslt))
+
+(defun package-external-symbols (package)
+  (let ((rslt nil))
+    (do-symbols (s package)
+      (when (eq (second
+                  (multiple-value-list
+                    (find-symbol (symbol-name s) package)))
+                :external)
+        (push s rslt)))
+    rslt))
 
 (defun sigmoid (x)
   "The sigmoid function "
