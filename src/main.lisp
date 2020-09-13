@@ -519,3 +519,10 @@
 ; (zip '(12 34 57 32 45) '(33 55 77))
 ; (zip '(12 34 57) '(33 55 77 32 34))
 ; (zip '(90 12 34 57) '(33 55 77 32 34))
+
+(defun sumlist (lst)
+  "Takes a list `lst' and Returns the sum of the list `lst' of numbers."
+  (reduce #'+ lst))
+
+;;;; (sumlist '(1 2 3 4 5 6 7 8 9 10 11)) ;; => 66
+;;;; (sumlist '(-1 2 -3 4 -5 6 7 -8 9 10 11)) ;; => 32
