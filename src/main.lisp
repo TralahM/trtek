@@ -539,6 +539,12 @@
 ; (zip '(12 34 57) '(33 55 77 32 34))
 ; (zip '(90 12 34 57) '(33 55 77 32 34))
 
+(defun zipn (&rest args)
+  (reduce #'zip  args))
+; (zipn '(90 12 34 57) '(33 55 77 32 34) '(21 45 33 12))
+; (zipn '(90 12 34 57) '(33 55 77 32 34) '(21 45 33 12) '(23 45 67 88))
+; (reduce #'+ (zipn '(90 12 34 57) '(33 55 77 32 34) '(21 45 33 12) '(23 45 67 88)))
+
 (defun sumlist (lst)
   "Takes a list `lst' and Returns the sum of the list `lst' of numbers."
   (reduce #'+ lst))
