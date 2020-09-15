@@ -142,6 +142,9 @@
 ;;(funcall (fif #'(lambda (x) (evenp x)) #'(lambda (x) (format t "~a is divisible by 2" x) ) #'(lambda (x) (format t "~a is not divisible by 2 ~%" x))) 8)
 
 (defun fint (fn &rest fns)
+  "Function Intersection for cases where we want an intersection of some n `fns' predicates:
+  Instead of (find-if #'(lambda (x) (and (signed x) (sealed x) (delivered x))) docs)  we can say:
+  (find-if (fint #'signed #'sealed #'delivered) docs)"
   fn
   (let ((chain (apply #'fint fns)))
     #'(lambda (x)
@@ -149,6 +152,7 @@
   )
 
 (defun fun (fn &rest fns)
+  "Function union similar to `fint` except it uses or instead of and."
   if (null fns)
   fn
   (let ((chain (apply #'fun fns)))
