@@ -120,3 +120,5 @@ _site
 # nohup.out files
 *.out
 stime
+*.fasl
+*.fasd
