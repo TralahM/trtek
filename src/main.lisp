@@ -32,6 +32,8 @@
         (push s rslt)))
     rslt))
 
+;; (package-internal-symbols :trtek)   
+
 (defun package-external-symbols (package)
   (let ((rslt nil))
     (do-symbols (s package)
@@ -41,6 +43,8 @@
                 :external)
         (push s rslt)))
     rslt))
+
+;; (package-external-symbols :trtek)   
 
 (defun sigmoid (x)
   "The sigmoid function "
@@ -74,6 +78,7 @@
 
 
 ;; (remove-if (cmplmnt #'oddp) '(1 2 3 4 5 6)) ;=> (1 3 5)
+;; (remove-if (cmplmnt #'evenp) '(1 2 3 4 5 6)) ;=> (2 4 6)
 ;;
 
 
@@ -153,8 +158,7 @@
 
 (defun fun (fn &rest fns)
   "Function union similar to `fint` except it uses or instead of and."
-  if (null fns)
-  fn
+  (if (null fns) fn)
   (let ((chain (apply #'fun fns)))
     #'(lambda (x)
         (or (funcall fn x) (funcall chain x)))))
@@ -286,7 +290,7 @@
 ;;;; (group '(1 2 3 4 5 6 7 8) 8)
 ;;;; (group '(1 2 3 4 5 6 7 8) 9)
 ;;;; (group '(0 1 2 3 4 5 6 7 8) 2)
-;;;; (group '(0 1 2 3 4 5 6 7 8) 0)
+;;;; (group '(0 1 2 3 4 5 6 7 8) 1)
 ;;;; (group '() 2)
 
 ; Doubly Recursive List Utilities
@@ -346,10 +350,14 @@
   (mapa-b fn 1 n))
 
 
+;; (mapcar #'+ '(1 2 3) '(4 5 6))
+;; (mapcar #'+ '(1 2 3) '(4 5 6) '(7 8 9))
+;; (mapcar #'+ '(1 2 3 4) '(4 5 6 11) '(7 8 9 0))
 ;; (map0-n #'1+ 5); ===> (1 2 3 4 5 6)
 ;; (map1-n #'1+ 5); ===> (2 3 4 5 6)
+; (expt 3 2)
 
-;; (map1-n #'(lambda (x) x) 5); ===> (1 2 3 4 5)
+; (map1-n #'(lambda (x) x) 5); ===> (1 2 3 4 5)
 ;; (map1-n #'(lambda (x) (* x x)) 5); ===> (1 4 9 16 25)
 
 (defun map-> (fn start test-fn succ-fn)
@@ -403,7 +411,7 @@
                ((funcall test x first) lst)
                (t (before x y (cdr lst) :test test))))))
 ;;; (before 'a 'b '(a)) ; ==> (A)
-;;; (before 'c 'd '(a b c d)) ; ==> (A)
+;;; (before 'c 'd '(a b c d)) ; ==> (C D)
 ;;; (before 'b 'a '(b a b a b d)); ==> (B A B A B D)
 
 (defun after (x y lst &key (test #'eql))
@@ -411,7 +419,7 @@
     (and rest (member x rest :test test))))
 ;;; (after 'a 'b '(b a d)); ==> (A D)
 ;;; (after 'a 'b '(b a b a d)); ==> (A B A D)
-;;; (after 'a 'b '(a)) ; ==> NIL
+;;; (after 'a 'b '(a b c)) ; ==> NIL
 
 ;; Check whether list lst contains duplicate obj using some test default
 ;; equality
@@ -558,7 +566,6 @@
 ; (zipn '(90 12 34 57) '(33 55 77 32 34) '(21 45 33 12))
 ; (zipn '(90 12 34 57) '(33 55 77 32 34))
 ; (zipn '(90 12 34 57) '(33 55 77 32 34) '(21 45 33 12) '(23 45 67 88))
-; (reduce #'+ (zipn '(90 12 34 57) '(33 55 77 32 34) '(21 45 33 12) '(23 45 67 88)))
 
 (defun sumlist (lst)
   "Takes a list `lst' and Returns the sum of the list `lst' of numbers."
@@ -598,7 +605,7 @@
     (nreverse res)))
 
 ;; (zipmult '(1 2 3) '(4 5 6)) ;;==> (4 10 18)
-;; (zipmult '(1 2 3) '(4 5 6) '(7 8 9)) ;;==> (28 80 172)
+;; (zipmult '(1 2 3) '(4 5 6) '(7 8 9)) ;;==> (28 80 162)
 
 (defun zipdiv (&rest args)
   (let ((res nil))
@@ -610,3 +617,23 @@
 ;; (zipdiv '(1 2 3) '(4 5 6)) ;;==> (1/4 2/5 1/2)
 ;; (zipdiv '(1.0 2.0 3.0) '(4 5 6)) ;;==> (0.25 0.4 0.5)
 ;; (zipdiv '(1.0 2.0 3.0) '(4 5 6) '(5 2 0.25)) ;;==> (0.05 0.2 2.0)
+
+
+(defun dot-product (&rest vectors)
+  (apply #'+ (apply #'zipmult vectors)))
+
+;; (dot-product '(1 2 3) '(4 5 6)) ;;==> (4 10 18)
+;; (dot-product '(1 2 3) '(4 5 6) '(7 8 9)) ;;==> (28 80 172)
+
+
+(defun cross-product (xlist ylist &optional (fn #'list))
+  "Return a list of all (fn x y) values."
+  (mappend #'(lambda (y)
+               (mapcar #'(lambda (x) (funcall fn x y))
+                       xlist))
+           ylist))
+
+;; (cross-product `(1 2 3) `(1 2 3))
+;; (cross-product `(1 2 3) `(1 2 3) #'+)
+;; (cross-product `(a b c) `(1 2 3) #'list)
+;; (cross-product `(a b c d) `(1 2 3) #'list)

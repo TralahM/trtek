@@ -50,6 +50,8 @@
     zipdiv
     zipmult
     zipn
+    dot-product
+    cross-product
     sumlist
     package-internal-symbols
     package-external-symbols))
