@@ -15,14 +15,15 @@
                              (:module "gps" :serial t :components ((:file "gps"))))))
   :description "An Attempt at Lisp System Building."
   :long-description #.(uiop:read-file-string (uiop:subpathname *load-pathname* "README.md"))
-  :in-order-to ((test-op (test-op "trtek/tests"))))
+  :in-order-to ((test-op (test-op "trtek-tests"))))
 
-(defsystem "trtek/tests"
+(defsystem "trtek-tests"
   :author "Tralah M Brian <musyoki.brian@tralahtek.com>"
   :license "GPL"
-  :defsystem-depends-on (:prove-asdf)
-  :depends-on (:trtek :prove :prove-asdf)
+  :defsystem-depends-on (:fiveam)
+  :depends-on (:trtek :fiveam )
   :components ((:module "tests"
+                :serial t
                 :components ((:file "main"))))
   :description "Test system for trtek"
-  :perform (test-op :after (op c) (funcall (intern #.(string :run) :prove) c)))
+  :perform (test-op :after (op c) (uiop:symbol-call :trtek-tests 'trtek-tests:test-trtek )))
