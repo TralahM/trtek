@@ -12,6 +12,76 @@
 
 ;; (choose 4 2)
 
+(defun deg-to-rad (deg)
+  "Convert `deg` degrees to radians"
+  (* deg pi 1/180))
+
+;; (deg-to-rad 180)
+;; (deg-to-rad 90)
+;; (deg-to-rad 45)
+
+(defun rad-to-deg (rad)
+  "Convert `rad` radians to degrees"
+  (* rad (/ 180 pi)))
+
+;; (rad-to-deg pi)
+;; (rad-to-deg (* pi 2))
+;; (rad-to-deg (* pi .5))
+
+
+(defun cos-deg (angle)
+  "Cosine of `angle` in Degrees"
+  (cos (deg-to-rad angle)))
+
+;; (cos-deg 60)
+;; (cos-deg 90)
+;; (cos-deg 30)
+;; (cos-deg 0)
+;; (cos-deg 45)
+
+(defun acos-deg (x)
+  "Arc-Cosine of `x` in Degrees"
+  (rad-to-deg (acos x)))
+
+;; (acos-deg .5)
+;; (acos-deg 0)
+;; (acos-deg 1)
+;; (acos-deg -1)
+
+(defun sin-deg (angle)
+  "Sine of `angle` in Degrees"
+  (sin (deg-to-rad angle)))
+
+;; (sin-deg 60)
+;; (sin-deg 90)
+;; (sin-deg 30)
+;; (sin-deg 0)
+;; (sin-deg 45)
+
+(defun asin-deg (x)
+  "Arc-Sine of `x` in Degrees"
+  (rad-to-deg (asin x)))
+
+;; (asin-deg .5)
+;; (asin-deg 0)
+;; (asin-deg 1)
+;; (asin-deg -1)
+
+(defun tan-deg (angle)
+  "Tangent of `angle` in Degrees"
+  (tan (deg-to-rad angle)))
+
+;; (tan-deg 45)
+;; (tan-deg 60)
+;; (tan-deg 30)
+
+(defun atan-deg (x)
+  "Arc-Tangent of `x` in Degrees"
+  (rad-to-deg (atan x)))
+
+;; (atan-deg .5)
+;; (atan-deg 0)
+;; (atan-deg .30)
 
 (defun lrec (rec &optional base)
   "Function to define flat list recursers.

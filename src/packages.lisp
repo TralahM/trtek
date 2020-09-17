@@ -3,66 +3,78 @@
 (defpackage trtek
   (:use :cl)
   (:export
-    sigmoid
-    sigmoid*
-    cmplmnt
-    memoize
-    compose
-    fif
-    fint
-    fun
-    readlist
-    prompt
-    break-loop
-    last1
-    single
+    *banana-ops*
+    *ops*
+    *school-ops*
+    acos-deg
+    after
     append1
+    asin-deg
+    atan-deg
+    before
+    best
+    break-loop
+    choose
+    cmplmnt
+    compose
     conc1
-    mklist
-    longer
+    cos-deg
+    cross-product
+    cumsum
+    deg-to-rad
+    dot-product
+    duplicate
+    explode
+    fact
+    fif
     filter
-    group
+    find2
+    fint
     flatten
-    prune
-    mapa-b
+    fun
+    gdebug
+    gps
+    group
+    last1
+    longer
+    lrec
+    map->
     map0-n
     map1-n
-    map->
-    mappend
+    mapa-b
     mapcars
-    rmapcar
-    find2
-    before
-    after
-    duplicate
-    split-if
-    most
-    best
-    mostn
+    mappend
+    memoize
+    mklist
     mkstr
-    symb
+    most
+    mostn
+    op
+    prompt
+    prune
+    rad-to-deg
+    readlist
     reread
-    explode
-    cumsum
+    rfind-if
+    rmapcar
+    sigmoid
+    sigmoid*
+    sin-deg
+    single
+    split-if
+    sumlist
+    symb
+    tan-deg
+    trec
+    ttrav
+    undebug
+    use
     zip
-    zipsum
     zipdiff
     zipdiv
     zipmult
     zipn
-    dot-product
-    cross-product
-    sumlist
-    fact
-    choose
-    gps
-    op
-    use
-    gdebug
-    undebug
-    *school-ops*
-    *banana-ops*
-    *ops*
+    zipsum
     package-internal-symbols
     package-external-symbols))
 
