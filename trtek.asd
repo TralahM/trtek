@@ -10,7 +10,9 @@
   :components ((:module "src"
                 :serial t
                 :components ((:file "packages")
-                             (:file "main"))))
+                             (:file "main")
+                             (:file "utils")
+                             (:module "gps" :serial t :components ((:file "gps"))))))
   :description "An Attempt at Lisp System Building."
   :long-description #.(uiop:read-file-string (uiop:subpathname *load-pathname* "README.md"))
   :in-order-to ((test-op (test-op "trtek/tests"))))
