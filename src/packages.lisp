@@ -53,6 +53,16 @@
     dot-product
     cross-product
     sumlist
+    fact
+    choose
+    gps
+    op
+    use
+    gdebug
+    undebug
+    *school-ops*
+    *banana-ops*
+    *ops*
     package-internal-symbols
     package-external-symbols))
 
