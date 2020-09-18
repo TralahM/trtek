@@ -6,7 +6,7 @@
   ; :homepage "https://github.com/TralahM/trtek"
   ; :bug-tracker "https://github.com/TralahM/trtek/issues"
   ; :source-control (:git "git@github.com:TralahM/trtek.git")
-  :depends-on (:uiop :alexandria :asdf :cl :fiveam)
+  :depends-on (:uiop :alexandria :asdf :fiveam)
   :components ((:module "src"
                 :serial t
                 :components ((:file "packages")
@@ -26,4 +26,4 @@
                 :serial t
                 :components ((:file "main"))))
   :description "Test system for trtek"
-  :perform (test-op (op c) (uiop:symbol-call #'trtek-tests:test-trtek )))
+  :perform (test-op (op c) (uiop:symbol-call 'trtek/tests/main :test-trtek )))

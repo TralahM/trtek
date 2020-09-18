@@ -1,10 +1,18 @@
 (in-package :trtek)
 
+(defvar *epsilon* 1.0e-6)
+
 (defun chars (str)
   "Get a list of all the characters in a string."
   (loop for c across str collect c))
 
 ; (chars "Get a list of all the characters in a string.")
+
+(defun approx-equal (x y &optional (*epsilon* *epsilon*))
+  "Check whether x and y are approximately equal.
+  Useful for floating point numbers."
+  (or (= x y)
+      (< (/ (abs (- x y)) (max (abs x) (abs y))) *epsilon*)))
 
 (defun fact (x)
   (if (= x 0)

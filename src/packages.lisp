@@ -3,12 +3,14 @@
 (defpackage trtek
   (:use :cl)
   (:export
+    *epsilon*
     *banana-ops*
     *ops*
     *school-ops*
     acos-deg
     after
     append1
+    approx-equal
     asin-deg
     atan-deg
     before
