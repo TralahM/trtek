@@ -11,6 +11,7 @@
                 :serial t
                 :components ((:file "packages")
                              (:file "main")
+                             (:file "macros")
                              (:file "utils")
                              (:module "gps" :serial t :components ((:file "gps"))))))
   :description "An Attempt at Lisp System Building."
