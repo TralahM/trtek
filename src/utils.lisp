@@ -1,87 +1,94 @@
 (in-package :trtek)
 
+(defun chars (str)
+  "Get a list of all the characters in a string."
+  (loop for c across str collect c))
+
+; (chars "Get a list of all the characters in a string.")
+
 (defun fact (x)
   (if (= x 0)
       1
       (* x (fact (- x 1)))))
 
-;; (fact 6)  ;;==> 720
+;; (fact 6) => 720
 
 (defun choose (n r)
   (/ (fact n) (fact (- n r)) (fact r)))
 
-;; (choose 4 2)
+;; (choose 4 2) => 6
+;; (choose 6 2) => 15
 
 (defun deg-to-rad (deg)
   "Convert `deg` degrees to radians"
   (* deg pi 1/180))
 
-;; (deg-to-rad 180)
-;; (deg-to-rad 90)
-;; (deg-to-rad 45)
+;; (deg-to-rad 180) => 3.141592653589793d0
+;; (deg-to-rad 90) => 1.5707963267948966d0
+;; (deg-to-rad 45) => 0.7853981633974483d0
 
 (defun rad-to-deg (rad)
   "Convert `rad` radians to degrees"
   (* rad (/ 180 pi)))
 
-;; (rad-to-deg pi)
-;; (rad-to-deg (* pi 2))
-;; (rad-to-deg (* pi .5))
+;; (rad-to-deg pi) => 180.0d0
+;; (rad-to-deg (* pi 2)) => 360.0d0
+;; (rad-to-deg (* pi .5)) => 90.0d0
 
 
 (defun cos-deg (angle)
   "Cosine of `angle` in Degrees"
   (cos (deg-to-rad angle)))
 
-;; (cos-deg 60)
-;; (cos-deg 90)
-;; (cos-deg 30)
-;; (cos-deg 0)
-;; (cos-deg 45)
+;; (cos-deg 60) => 0.5
+;; (cos-deg 90) => 0.0
+;; (cos-deg 30) => 0.866
+;; (cos-deg 0) => 1.0d0
+;; (cos-deg 45) => 0.7071
 
 (defun acos-deg (x)
   "Arc-Cosine of `x` in Degrees"
   (rad-to-deg (acos x)))
 
-;; (acos-deg .5)
-;; (acos-deg 0)
-;; (acos-deg 1)
-;; (acos-deg -1)
+;; (acos-deg .5) => 60.0
+;; (acos-deg 0) => 90.0
+;; (acos-deg 1) => 0.0d0
+;; (acos-deg -1) => 180.0
 
 (defun sin-deg (angle)
   "Sine of `angle` in Degrees"
   (sin (deg-to-rad angle)))
 
-;; (sin-deg 60)
-;; (sin-deg 90)
-;; (sin-deg 30)
-;; (sin-deg 0)
-;; (sin-deg 45)
+;; (sin-deg 60) => 0.866
+;; (sin-deg 90) => 1.0d0
+;; (sin-deg 30) => 0.5
+;; (sin-deg 0) => 0.0d0
+;; (sin-deg 45) => 0.7071
 
 (defun asin-deg (x)
   "Arc-Sine of `x` in Degrees"
   (rad-to-deg (asin x)))
 
-;; (asin-deg .5)
-;; (asin-deg 0)
-;; (asin-deg 1)
-;; (asin-deg -1)
+;; (asin-deg .5) => 30.0
+;; (asin-deg 0) => 0.0d0
+;; (asin-deg 1) => 90.0
+;; (asin-deg -1) => -90.0
 
 (defun tan-deg (angle)
   "Tangent of `angle` in Degrees"
   (tan (deg-to-rad angle)))
 
-;; (tan-deg 45)
-;; (tan-deg 60)
-;; (tan-deg 30)
+;; (tan-deg 45) => 1
+;; (tan-deg 60) => 1.732
+;; (tan-deg 30) => 0.577
 
 (defun atan-deg (x)
   "Arc-Tangent of `x` in Degrees"
   (rad-to-deg (atan x)))
 
-;; (atan-deg .5)
-;; (atan-deg 0)
-;; (atan-deg .30)
+;; (atan-deg .5) => 26.5651
+;; (atan-deg 0) => 0.0d0
+;; (atan-deg 1.0) => 45.0
 
 (defun lrec (rec &optional base)
   "Function to define flat list recursers.

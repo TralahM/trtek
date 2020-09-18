@@ -14,6 +14,7 @@
     before
     best
     break-loop
+    chars
     choose
     cmplmnt
     compose
@@ -78,3 +79,8 @@
     package-internal-symbols
     package-external-symbols))
 
+(defpackage trtek-tests
+  (:use :cl
+        :trtek
+        :fiveam)
+  (:export #:run! #:all-tests test-trtek))
