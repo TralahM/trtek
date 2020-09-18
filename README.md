@@ -112,10 +112,10 @@ Run The Tests
 
 # Self-Promotion
 
-[![TralahM](https://img.shields.io/badge/Twitter-TralahM-blue.svg?style=for-the-badge&icon=twitter)](https://twitter.com/TralahM)
-[![TralahM](https://img.shields.io/badge/Github-TralahM-black.svg?style=for-the-badge&icon=github)](https://github.com/TralahM)
+[![TralahM](https://img.shields.io/badge/Twitter-TralahM-blue.svg?style=for-the-badge&logo=twitter)](https://twitter.com/TralahM)
+[![TralahM](https://img.shields.io/badge/Github-TralahM-black.svg?style=for-the-badge&logo=github)](https://github.com/TralahM)
 [![TralahM](https://img.shields.io/badge/Kaggle-TralahM-purple.svg?style=for-the-badge)](https://kaggle.com/TralahM)
-[![TralahM](https://img.shields.io/badge/LinkedIn-TralahM-red.svg?style=for-the-badge&icon=linkedin)](https://linkedin.com/in/TralahM)
+[![TralahM](https://img.shields.io/badge/LinkedIn-TralahM-red.svg?style=for-the-badge&logo=linkedin)](https://linkedin.com/in/TralahM)
 
 
 [![Blog](https://img.shields.io/badge/Blog-tralahm.tralahtek.com-blue.svg?style=for-the-badge)](https://tralahm.tralahtek.com)
