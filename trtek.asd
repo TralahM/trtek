@@ -10,6 +10,7 @@
   :components ((:module "src"
                 :serial t
                 :components ((:file "packages")
+                             (:file "abbreviations")
                              (:file "main")
                              (:file "macros")
                              (:file "utils")
