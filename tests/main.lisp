@@ -3,6 +3,7 @@
         :trtek
         :fiveam)
   (:export #:run! #:all-tests test-trtek))
+
 (in-package :trtek-tests)
 
 
@@ -108,3 +109,51 @@
       (is (equal (cross-product `(1 2) `(1 2)) '((1 1) (1 2) (2 1) (2 2)))))
 (test test-cross-product
       (is (equal (cross-product `(1 2) `(a b)) '((1 a) (2 a) (1 b) (2 b)))))
+
+
+
+
+(test factorial-test
+      (is (equal (fact 5)  120))
+      (is (equal (fact 6)  720)))
+(test n-choose-r-test
+      (is (equal (choose 6 2)  15))
+      (is (equal (choose 4 2)  6)))
+(test deg-to-rad-test
+      (is (equal (deg-to-rad 90)  1.5707963267948966d0))
+      (is (equal (deg-to-rad 45)  0.7853981633974483d0))
+      (is (equal (deg-to-rad 180)  3.141592653589793d0)))
+(test rad-to-deg-test
+      (is (equal (rad-to-deg (* pi 2))  360.0d0))
+      (is (equal (rad-to-deg (* pi .5))  90.0d0))
+      (is (equal (rad-to-deg pi)  180.0d0)))
+(test cos-deg-test
+      (is (equal (cos-deg 90)  0.0))
+      (is (equal (cos-deg 30)  0.866))
+      (is (equal (cos-deg 0)  1.0d0))
+      (is (equal (cos-deg 45)  0.7071))
+      (is (equal (cos-deg 60)  0.5)))
+(test acos-deg-test
+      (is (equal (acos-deg 0)  90.0))
+      (is (equal (acos-deg 1)  0.0d0))
+      (is (equal (acos-deg -1)  180.0))
+      (is (equal (acos-deg .5)  60.0)))
+(test sin-deg-test
+      (is (equal (sin-deg 90)  1.0d0))
+      (is (equal (sin-deg 30)  0.5))
+      (is (equal (sin-deg 0)  0.0d0))
+      (is (equal (sin-deg 45)  0.7071))
+      (is (equal (sin-deg 60)  0.866)))
+(test tan-deg-test
+      (is (equal (tan-deg 60)  1.732))
+      (is (equal (tan-deg 30)  0.577))
+      (is (equal (tan-deg 45)  1)))
+(test atan-deg-test
+      (is (equal (atan-deg 0)  0.0d0))
+      (is (equal (atan-deg 1.0)  45.0))
+      (is (equal (atan-deg .5)  26.5651)))
+(test asin-deg-test
+      (is (equal (asin-deg 0)  0.0d0))
+      (is (equal (asin-deg 1)  90.0))
+      (is (equal (asin-deg -1)  -90.0))
+      (is (equal (asin-deg .5)  30.0)))
