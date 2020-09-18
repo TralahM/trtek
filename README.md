@@ -10,7 +10,7 @@
 [![GitHub pull-requests](https://img.shields.io/badge/Issues-pr-red.svg?style=flat-square)](https://github.com/TralahM/trtek-utils/pull/)
 [![Language](https://img.shields.io/badge/Language-lisp-87AED7.svg)](https://github.com/TralahM)
 
-# trtek-utils.
+# trtek
 
 
 [![TralahTek](https://img.shields.io/badge/Organization-TralahTek-black.svg?style=for-the-badge)](https://github.com/TralahTek)
@@ -19,7 +19,29 @@
 
 # Documentation
 
-[![Documentation](https://img.shields.io/badge/Docs-trtek-utils-blue.svg?style=for-the-badge)](https://github.com/TralahM/trtek-utils)
+[![Documentation](https://img.shields.io/badge/Docs-trtek-utils-blue.svg?style=for-the-badge)](https://github.com/TralahM/trtek)
+
+## Quickstart
+
+Clone this repository to your quicklisp or common-lisp local-projects folder.
+
+```console
+$ cd ~/quicklisp/local-projects
+$ git clone https://github.com/TralahM/trtek.git
+$ sbcl
+```
+
+Use Quickload to load
+
+```lisp
+(ql:quickload :trtek)
+```
+
+Run The Tests
+
+```lisp
+(asdf:test-system :trtek)
+```
 
 ## Defined Utility Functions
 - after
@@ -71,17 +93,8 @@
 - zipdiv
 - zipmult
 - zipsum
-# How to Install
-```bash
-# In terminal do:
-```
 
-## Building from Source for Developers
 
-```console
-$ git clone https://github.com/TralahM/trtek-utils.git
-$ cd trtek-utils
-```
 
 # Contributing
 [See the Contributing File](CONTRIBUTING.rst)
@@ -99,10 +112,10 @@ $ cd trtek-utils
 
 # Self-Promotion
 
-[![TralahM](https://img.shields.io/badge/Twitter-TralahM-blue.svg?style=for-the-badge)](https://twitter.com/TralahM)
-[![TralahM](https://img.shields.io/badge/Github-TralahM-black.svg?style=for-the-badge)](https://github.com/TralahM)
+[![TralahM](https://img.shields.io/badge/Twitter-TralahM-blue.svg?style=for-the-badge&icon=twitter)](https://twitter.com/TralahM)
+[![TralahM](https://img.shields.io/badge/Github-TralahM-black.svg?style=for-the-badge&icon=github)](https://github.com/TralahM)
 [![TralahM](https://img.shields.io/badge/Kaggle-TralahM-purple.svg?style=for-the-badge)](https://kaggle.com/TralahM)
-[![TralahM](https://img.shields.io/badge/LinkedIn-TralahM-red.svg?style=for-the-badge)](https://linkedin.com/in/TralahM)
+[![TralahM](https://img.shields.io/badge/LinkedIn-TralahM-red.svg?style=for-the-badge&icon=linkedin)](https://linkedin.com/in/TralahM)
 
 
 [![Blog](https://img.shields.io/badge/Blog-tralahm.tralahtek.com-blue.svg?style=for-the-badge)](https://tralahm.tralahtek.com)
