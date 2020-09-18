@@ -98,19 +98,19 @@
 ;; (atan-deg 0) => 0.0d0
 ;; (atan-deg 1.0) => 45.0
 
-(defun lrec (rec &optional base)
-  "Function to define flat list recursers.
-  The first argument to lrec must be a function of two arguments,
-  the current car of the list,and a function which can be called to continue the
-  recursion."
-  (labels ((self (lst)
-             (if (null lst)
-                 (if (functionp base)
-                     (funcall base)
-                     base)
-                 (funcall rec (car lst)
-                          #'(lambda () (self (cdr lst)))))))
-    #'self))
+; (defun lrec (rec &optional base)
+;   "Function to define flat list recursers.
+;   The first argument to lrec must be a function of two arguments,
+;   the current car of the list,and a function which can be called to continue the
+;   recursion."
+;   (labels ((self (lst)
+;              (if (null lst)
+;                  (if (functionp base)
+;                      (funcall base)
+;                      base)
+;                  (funcall rec (car lst)
+;                           #'(lambda () (self (cdr lst)))))))
+;     #'self))
 
 ;; Using lrec we coul express our-length as:
 ;; (funcall (lrec #'(lambda (x f) (1+ (funcall f))) 0) '(1 2 3 4 5 6 7))

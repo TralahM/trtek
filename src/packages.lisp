@@ -7,77 +7,103 @@
     *banana-ops*
     *ops*
     *school-ops*
-    acos-deg
-    after
-    append1
-    approx-equal
-    asin-deg
-    atan-deg
-    before
-    best
-    break-loop
-    chars
-    choose
-    cmplmnt
-    compose
-    conc1
-    cos-deg
-    cross-product
-    cumsum
-    deg-to-rad
-    dot-product
-    duplicate
-    explode
-    fact
-    fif
-    filter
-    find2
-    fint
-    flatten
-    fun
-    gdebug
-    gps
-    group
-    last1
-    longer
-    lrec
-    map->
-    map0-n
-    map1-n
-    mapa-b
-    mapcars
-    mappend
-    memoize
-    mklist
-    mkstr
-    most
-    mostn
-    op
-    prompt
-    prune
-    rad-to-deg
-    readlist
-    reread
-    rfind-if
-    rmapcar
-    sigmoid
-    sigmoid*
-    sin-deg
-    single
-    split-if
-    sumlist
-    symb
-    tan-deg
-    trec
-    ttrav
-    undebug
-    use
-    zip
-    zipdiff
-    zipdiv
-    zipmult
-    zipn
-    zipsum
-    package-internal-symbols
-    package-external-symbols))
+    achieve-all    ;; (state goals goal-stack)
+    achieve    ;; (state goal goal-stack)
+    acos-deg    ;; (x)
+    after    ;; (x y lst &key (test
+    append1    ;; (lst obj)
+    apply-op    ;; (state goal op goal-stack)
+    appropriate-p    ;; (goal op)
+    approx-equal    ;; (x y &optional (*epsilon* *epsilon*))
+    asin-deg    ;; (x)
+    atan-deg    ;; (x)
+    before    ;; (x y lst &key (test
+    best    ;; (fn lst)
+    break-loop    ;; (fn quit &rest args)
+    build-call    ;; (op fns)
+    build-compose    ;; (fns)
+    chars    ;; (str)
+    choose    ;; (n r)
+    cmplmnt    ;; (fn)
+    compose    ;; (&rest fns)
+    conc1    ;; (lst obj)
+    convert-op    ;; (op)
+    cos-deg    ;; (angle)
+    cross-product    ;; (xlist ylist &optional (fn #'list))
+    cumsum    ;; (lst &key (smsf 0))
+    dbg    ;; (id format-string &rest args)
+    dbg-indent    ;; (id indent format-string &rest args)
+    ; defnode    ;; (&rest args)
+    deg-to-rad    ;; (deg)
+    differences    ;; (set &rest outs)
+    dot-product    ;; (&rest vectors)
+    duplicate    ;; (obj lst &key (test #'eql))
+    executing-p    ;; (x)
+    explode    ;; (sym)
+    fact    ;; (x)
+    fif    ;; (if then &optional else)
+    filter    ;; (fn lst)
+    find2    ;; (fn lst)
+    find-all    ;; (item sequence &rest keyword-args
+    fint    ;; (fn &rest fns)
+    flatten    ;; (x)
+    fun    ;; (fn &rest fns)
+    gdebug    ;; (&rest ids)
+    GPS    ;; (state goals &optional (*ops* *ops*))
+    group    ;; (source n)
+    intersections    ;; (&rest sets)
+    last1    ;; (lst)
+    longer    ;; (x y)
+    lrec    ;; (rec &optional base)
+    map0-n    ;; (fn n)
+    map1-n    ;; (fn n)
+    mapa-b    ;; (fn a b &optional (step
+    mapcars    ;; (fn &rest lsts)
+    map->    ;; (fn start test-fn succ-fn)
+    mappend    ;; (fn &rest lsts)
+    maxmin    ;; (args)
+    member-equal    ;; (item list)
+    memoize    ;; (fn)
+    mklist    ;; (obj)
+    mkstr    ;; (&rest args)
+    most    ;; (fn lst)
+    mostn    ;; (fn lst)
+    op    ;; (action &key preconds add-list del-list)
+    package-external-symbols    ;; (package)
+    package-internal-symbols    ;; (package)
+    prompt    ;; (&rest args)
+    prune    ;; (test tree)
+    rad-to-deg    ;; (rad)
+    rbuild    ;; (expr)
+    readlist    ;; (&rest args)
+    reread    ;; (&rest args)
+    rfind-if    ;; (fn tree)
+    rmapcar    ;; (fn &rest args)
+    sigmoid    ;; (x)
+    sigmoid*    ;; (x)
+    sin-deg    ;; (angle)
+    single    ;; (lst)
+    split-if    ;; (fn lst)
+    starts-with    ;; (list x)
+    sumlist    ;; (lst)
+    symb    ;; (&rest args)
+    tan-deg    ;; (angle)
+    tek-copy-list    ;; (lst)
+    tek-every    ;; (fn lst)
+    tek-find-if    ;; (fn lst)
+    tek-remove-duplicates    ;; (lst)
+    tek-some    ;; (fn lst)
+    test-using    ;; (x val)
+    trec    ;; (rec &optional (base #'identity))
+    ttrav    ;; (rec &optional (base #'identity))
+    undebug    ;; (&rest ids )
+    unions    ;; (&rest sets)
+    use    ;; (oplist)
+    zipdiff    ;; (&rest args)
+    zipdiv    ;; (&rest args)
+    zipmult    ;; (&rest args)
+    zipn    ;; (&rest args)
+    zipsum    ;; (&rest args)
+    zip    ;; (x y)
+    ))
 
