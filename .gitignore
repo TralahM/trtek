@@ -121,4 +121,3 @@ _site
 *.out
 stime
 *.fasl
-*.fasd
